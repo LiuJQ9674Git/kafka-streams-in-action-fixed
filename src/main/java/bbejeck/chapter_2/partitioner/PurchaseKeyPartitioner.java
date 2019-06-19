@@ -4,7 +4,9 @@ import bbejeck.model.PurchaseKey;
 import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
 import org.apache.kafka.common.Cluster;
 
-
+/**
+ * 按照客户ID分片
+ */
 public class PurchaseKeyPartitioner extends DefaultPartitioner {
 
 

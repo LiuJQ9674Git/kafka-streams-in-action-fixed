@@ -25,6 +25,7 @@ public class SimpleProducer {
     public static void main(String[] args) {
 
         Properties properties = new Properties();
+        //kafka servers
         properties.put("bootstrap.servers", "localhost:9092");
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
@@ -32,13 +33,14 @@ public class SimpleProducer {
         properties.put("retries", "3");
         properties.put("compression.type", "snappy");
         //This line in for demonstration purposes
+        //分片示例
         properties.put("partitioner.class", PurchaseKeyPartitioner.class.getName());
-
+        //客户ID
         PurchaseKey key = new PurchaseKey("12334568", new Date());
 
         try(Producer<PurchaseKey, String> producer = new KafkaProducer<>(properties)) {
             ProducerRecord<PurchaseKey, String> record = new ProducerRecord<>("some-topic", key, "value");
-
+            //异步发送
             Callback callback = (metadata, exception) -> {
                 if (exception != null) {
                     exception.printStackTrace();
