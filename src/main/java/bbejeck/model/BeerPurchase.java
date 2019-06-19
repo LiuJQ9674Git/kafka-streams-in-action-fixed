@@ -1,6 +1,8 @@
 package bbejeck.model;
 
-
+/**
+ * 啤酒购买单据
+ */
 public class BeerPurchase {
 
     private Currency currency;

@@ -42,7 +42,9 @@ public class KafkaStreamsYellingApp {
         MockDataProducer.produceRandomTextData();
 
         Properties props = new Properties();
+        //应用ID
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "yelling_app_id");
+        //卡夫卡服务器
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 
         StreamsConfig streamsConfig = new StreamsConfig(props);
@@ -51,13 +53,17 @@ public class KafkaStreamsYellingApp {
 
         StreamsBuilder builder = new StreamsBuilder();
 
+        //消费队列，K-V的类型为String-String
         KStream<String, String> simpleFirstStream = builder.stream("src-topic",
                 Consumed.with(stringSerde, stringSerde));
 
-
+        //把值转大写
         KStream<String, String> upperCasedStream = simpleFirstStream.mapValues(String::toUpperCase);
 
+        //输出消息
         upperCasedStream.to( "out-topic", Produced.with(stringSerde, stringSerde));
+
+        //打印结果
         upperCasedStream.print(Printed.<String, String>toSysOut().withLabel("Yelling App"));
 
 

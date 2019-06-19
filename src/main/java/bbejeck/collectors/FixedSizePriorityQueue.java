@@ -9,6 +9,9 @@ import java.util.TreeSet;
  * Class that acts as a priority queue but has a fixed size.
  * When the maximum number of elements is reached the lowest/highest element
  * will be removed.
+ * 固定大小优先级队列
+ *
+ * 优先级，即比较器
  */
 public class FixedSizePriorityQueue<T> {
 

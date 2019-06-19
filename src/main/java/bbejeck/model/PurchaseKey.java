@@ -3,10 +3,19 @@ package bbejeck.model;
 import java.util.Date;
 import java.util.Objects;
 
-
+/**
+ * 购物Key
+ */
 public class PurchaseKey {
 
+    /**
+     * 顾客ID
+     */
     private String customerId;
+
+    /**
+     * 交易日期
+     */
     private Date transactionDate;
 
     public PurchaseKey(String customerId, Date transactionDate) {

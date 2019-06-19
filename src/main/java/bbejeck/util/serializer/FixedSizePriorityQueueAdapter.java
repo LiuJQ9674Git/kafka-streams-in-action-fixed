@@ -14,12 +14,14 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public class FixedSizePriorityQueueAdapter extends TypeAdapter<FixedSizePriorityQueue<ShareVolume>> {
+public class FixedSizePriorityQueueAdapter extends
+        TypeAdapter<FixedSizePriorityQueue<ShareVolume>> {
 
     private Gson gson = new Gson();
 
     @Override
-    public void write(JsonWriter writer, FixedSizePriorityQueue<ShareVolume> value) throws IOException {
+    public void write(JsonWriter writer,
+                      FixedSizePriorityQueue<ShareVolume> value) throws IOException {
 
         if (value == null) {
             writer.nullValue();
@@ -52,7 +54,8 @@ public class FixedSizePriorityQueueAdapter extends TypeAdapter<FixedSizePriority
         reader.endArray();
 
         Comparator<ShareVolume> c = (c1, c2) -> c2.getShares() - c1.getShares();
-        FixedSizePriorityQueue<ShareVolume> fixedSizePriorityQueue = new FixedSizePriorityQueue<>(c, 5);
+        FixedSizePriorityQueue<ShareVolume> fixedSizePriorityQueue =
+                new FixedSizePriorityQueue<>(c, 5);
 
         for (ShareVolume transaction : list) {
             fixedSizePriorityQueue.add(transaction);

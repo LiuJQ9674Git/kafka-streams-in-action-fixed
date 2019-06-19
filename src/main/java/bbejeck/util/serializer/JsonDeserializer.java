@@ -25,9 +25,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 /**
- * User: Bill Bejeck
- * Date: 2/14/16
- * Time: 3:26 PM
+ * 反序列化
  */
 
 public class JsonDeserializer<T> implements Deserializer<T> {
@@ -49,7 +47,8 @@ public class JsonDeserializer<T> implements Deserializer<T> {
 
     private void init () {
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(FixedSizePriorityQueue.class, new FixedSizePriorityQueueAdapter().nullSafe());
+        builder.registerTypeAdapter(FixedSizePriorityQueue.class,
+                new FixedSizePriorityQueueAdapter().nullSafe());
         gson = builder.create();
     }
 

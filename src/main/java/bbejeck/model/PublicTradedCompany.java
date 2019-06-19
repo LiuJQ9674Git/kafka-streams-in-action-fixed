@@ -5,14 +5,45 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * 上市公司
+ */
 public  class PublicTradedCompany {
+    /**
+     * 波动率
+     */
     private double volatility;
+
+    /**
+     * 交易所当天收盘价
+     */
     private double lastSold;
+
+    /**
+     * 交易码
+     */
     private String symbol;
+
+    /**
+     * 名称
+     */
     private String name;
+
+    /**
+     * 等级
+     */
     private String sector;
+
+    /**
+     * 行业
+     */
     private String industry;
+
+    /**
+     * 价格
+     */
     private double price;
+
     private NumberFormat formatter = new DecimalFormat("#0.00");
 
     public String getSymbol() {
@@ -35,7 +66,8 @@ public  class PublicTradedCompany {
         return Double.parseDouble(formatter.format(price));
     }
 
-    public PublicTradedCompany(double voltility, double lastSold, String symbol, String name, String sector, String industry) {
+    public PublicTradedCompany(double voltility, double lastSold, String symbol,
+                               String name, String sector, String industry) {
         this.volatility = volatility;
         this.lastSold = lastSold;
         this.symbol = symbol.toUpperCase();

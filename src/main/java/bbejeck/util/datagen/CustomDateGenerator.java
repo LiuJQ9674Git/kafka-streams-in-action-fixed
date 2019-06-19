@@ -5,13 +5,20 @@ import java.time.Instant;
 import java.util.Date;
 
 /**
- * Generates dates either with uniform increases in time
- * or within random periods of time with increases and occasional
- * late arrival data
+ * 客户化日期
  */
 public class CustomDateGenerator {
 
+    /**
+     * 时间戳
+     */
     private Instant instant = Instant.now();
+
+    /**
+     * Duration 是在 Java 8中加入的，主要是用来计算日期，差值之类的。
+     *
+     * Duration 被声明final（immutable），并且线程安全。
+     */
     private Duration increaseDuration;
 
     private CustomDateGenerator(Duration increaseDuration) {

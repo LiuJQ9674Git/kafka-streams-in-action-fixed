@@ -19,15 +19,28 @@ package bbejeck.model;
 import java.util.Date;
 
 /**
- * User: Bill Bejeck
- * Date: 2/21/16
- * Time: 3:36 PM
+ * 购买分析模型
  */
 public class PurchasePattern {
 
+    /**
+     * 邮编
+     */
     private String zipCode;
+
+    /**
+     * 物品
+     */
     private String item;
+
+    /**
+     * 日期
+     */
     private Date date;
+
+    /**
+     * 总额
+     */
     private double amount;
 
 

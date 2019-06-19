@@ -1,13 +1,38 @@
 package bbejeck.model;
 
-
+/**
+ * 交易摘要
+ */
 public class TransactionSummary {
 
+    /**
+     * 客户ID
+     */
     private String customerId;
+
+    /**
+     * 债券报价机
+     */
     private String stockTicker;
+
+    /**
+     * 行业
+     */
     private String industry;
+
+    /**
+     * 总额
+     */
     private long summaryCount;
+
+    /**
+     * 客户姓名
+     */
     private String customerName;
+
+    /**
+     * 公司名
+     */
     private String companyName;
 
 

@@ -1,6 +1,8 @@
 package bbejeck.util;
 
-
+/**
+ * 新闻标题
+ */
 public enum Topics {
 
     COMPANIES {

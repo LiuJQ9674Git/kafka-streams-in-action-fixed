@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This example expects a topic "test-topic" to exist with 2 partitions
- *
+ * 消费数据
  */
 public class ThreadedConsumerExample {
 

@@ -1,13 +1,18 @@
 package bbejeck.model;
 
 /**
- * User: Bill Bejeck
- * Date: 3/21/17
- * Time: 11:04 PM
+ * 交易和
  */
 public class TransactionCount {
 
+    /**
+     * 总额
+     */
     long count;
+
+    /**
+     * 交易码
+     */
     String symbol;
 
     private TransactionCount(Builder builder) {

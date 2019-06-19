@@ -17,16 +17,33 @@
 package bbejeck.model;
 
 /**
- * User: Bill Bejeck
- * Date: 2/20/16
- * Time: 9:55 AM
+ * 积分计算
  */
 public class RewardAccumulator {
 
+    /**
+     * 顾客ID
+     */
     private String customerId;
+
+    /**
+     * 购买额
+     */
     private double purchaseTotal;
+
+    /**
+     * 积分总额
+     */
     private int totalRewardPoints;
+
+    /**
+     * 当前积分点
+     */
     private int currentRewardPoints;
+
+    /**
+     * 最近购物天数
+     */
     private int daysFromLastPurchase;
 
     private RewardAccumulator(String customerId, double purchaseTotal, int rewardPoints) {

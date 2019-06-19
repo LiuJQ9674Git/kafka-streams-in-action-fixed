@@ -5,18 +5,61 @@ import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.ArrayDeque;
 
+/**
+ * 股票业绩
+ */
 public class StockPerformance {
 
+    /**
+     * 时间戳
+     */
     private Instant lastUpdateSent;
+
     private static final int MAX_LOOK_BACK = 20;
+
+    /**
+     * 当前股价
+     */
     private double currentPrice = 0.0;
+
+    /**
+     * 价格差
+     */
     private double priceDifferential = 0.0;
+
+    /**
+     * 股票差额
+     */
     private double shareDifferential = 0.0;
+
+    /**
+     * 当前交易量
+     */
     private int currentShareVolume = 0;
+
+    /**
+     * 当前均价
+     */
     private double currentAveragePrice = Double.MIN_VALUE;
+
+    /**
+     * 当前均量
+     */
     private double currentAverageVolume = Double.MIN_VALUE;
+
+    /**
+     * 交易量历史
+     */
     private ArrayDeque<Double> shareVolumeLookback = new ArrayDeque<>(MAX_LOOK_BACK);
+
+    /**
+     * 股价历史
+     */
     private ArrayDeque<Double> sharePriceLookback = new ArrayDeque<>(MAX_LOOK_BACK);
+
+    /**
+     *
+     */
     private transient DecimalFormat decimalFormat = new DecimalFormat("#.00");
     
 

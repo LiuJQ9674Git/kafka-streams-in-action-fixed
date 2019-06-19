@@ -4,16 +4,33 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * User: Bill Bejeck
- * Date: 11/20/16
- * Time: 7:37 PM
+ * 相互关联购买单据
  */
 public class CorrelatedPurchase {
 
+    /**
+     * 客户ID
+     */
     private String customerId;
+
+    /**
+     * 购买清单
+     */
     private List<String> itemsPurchased;
+
+    /**
+     * 总额
+     */
     private double totalAmount;
+
+    /**
+     * 首次购买时间
+     */
     private Date firstPurchaseTime;
+
+    /**
+     * 第二次购买时间
+     */
     private Date secondPurchaseTime;
 
     private CorrelatedPurchase(Builder builder) {

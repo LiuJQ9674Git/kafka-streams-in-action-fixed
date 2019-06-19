@@ -24,7 +24,9 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * 流序列化
+ */
 public class StreamsSerdes {
 
     public static Serde<PurchasePattern> PurchasePatternSerde() {
@@ -88,6 +90,7 @@ public class StreamsSerdes {
         return new PurchaseKeySerde();
     }
 
+    ////////////////////////序列化实现//////////////////////////
     public static final class PurchaseKeySerde extends WrapperSerde<PurchaseKey> {
         public PurchaseKeySerde(){
             super(new JsonSerializer<>(), new JsonDeserializer<>(PurchaseKey.class) );

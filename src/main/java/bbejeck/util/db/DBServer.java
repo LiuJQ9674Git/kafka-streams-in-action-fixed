@@ -22,6 +22,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * 内存数据库
+ */
 public class DBServer {
     private static final Logger LOG = LoggerFactory.getLogger(DBServer.class);
 

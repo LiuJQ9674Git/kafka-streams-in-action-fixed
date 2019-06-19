@@ -2,7 +2,9 @@ package bbejeck.model;
 
 import java.time.Instant;
 
-
+/**
+ * 点击事件
+ */
 public class ClickEvent {
 
     private String symbol;

@@ -1,13 +1,18 @@
 package bbejeck.model;
 
 /**
- * User: Bill Bejeck
- * Date: 3/21/17
- * Time: 11:14 PM
+ * 金融新闻
  */
 public class FinancialNews {
 
+    /**
+     * 行业
+     */
     private String industry;
+
+    /**
+     * 新闻
+     */
     private String news;
 
     public String getIndustry() {

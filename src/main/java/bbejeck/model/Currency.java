@@ -1,6 +1,8 @@
 package bbejeck.model;
 
-
+/**
+ * 货币
+ */
 public enum Currency {
 
     EURO(1.09),

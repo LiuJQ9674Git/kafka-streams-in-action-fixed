@@ -26,15 +26,44 @@ import java.util.regex.Pattern;
 
 public class DataGenerator {
 
+    /**
+     * 客户
+     */
     public static final int NUMBER_UNIQUE_CUSTOMERS = 100;
+
+    /**
+     * 店铺
+     */
     public static final int NUMBER_UNIQUE_STORES = 15;
+
+    /**
+     * 购物清单，报表
+     */
     public static final int NUMBER_TEXT_STATEMENTS = 15;
+
+    /**
+     * 购物小票
+     */
     public static final int DEFAULT_NUM_PURCHASES = 100;
+
+    /**
+     * 贸易公司
+     */
     public static final int NUMBER_TRADED_COMPANIES = 50;
+
+    /**
+     * 事务
+     */
     public static final int NUM_ITERATIONS = 10;
 
+    /**
+     * 伪造者
+     */
     private static Faker dateFaker = new Faker();
-    private static Supplier<Date> timestampGenerator = () -> dateFaker.date().past(15, TimeUnit.MINUTES, new Date());
+
+    //供货方
+    private static Supplier<Date> timestampGenerator =
+            () -> dateFaker.date().past(15, TimeUnit.MINUTES, new Date());
 
     private DataGenerator() {
     }
@@ -48,6 +77,7 @@ public class DataGenerator {
 
     public static List<String> generateRandomText() {
         List<String> phrases = new ArrayList<>(NUMBER_TEXT_STATEMENTS);
+        //伪造者
         Faker faker = new Faker();
 
         for (int i = 0; i < NUMBER_TEXT_STATEMENTS; i++) {
@@ -59,6 +89,7 @@ public class DataGenerator {
 
     public static List<String> generateFinancialNews() {
         List<String> news = new ArrayList<>(9);
+        //伪造者
         Faker faker = new Faker();
         for (int i = 0; i < 9; i++) {
             news.add(faker.company().bs());
@@ -69,6 +100,7 @@ public class DataGenerator {
 
     public static List<ClickEvent> generateDayTradingClickEvents(int numberEvents, List<PublicTradedCompany> companies) {
         List<ClickEvent> clickEvents = new ArrayList<>(numberEvents);
+        //伪造者
         Faker faker = new Faker();
         for (int i = 0; i < numberEvents; i++) {
             String symbol = companies.get(faker.number().numberBetween(0,companies.size())).getSymbol();
@@ -84,9 +116,11 @@ public class DataGenerator {
 
     public static List<Purchase> generatePurchases(int number, int numberCustomers) {
         List<Purchase> purchases = new ArrayList<>();
-
+        //伪造者
         Faker faker = new Faker();
+        //顾客
         List<Customer> customers = generateCustomers(numberCustomers);
+        //零售店
         List<Store> stores = generateStores();
 
         Random random = new Random();

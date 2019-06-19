@@ -1,9 +1,23 @@
 package bbejeck.model;
 
+/**
+ * 客户交易
+ */
 public class CustomerTransactions {
 
+    /**
+     * 会话信息
+     */
     private String sessionInfo;
+
+    /**
+     * 总价
+     */
     private double totalPrice = 0;
+
+    /**
+     * 总份额
+     */
     private long totalShares = 0;
 
 

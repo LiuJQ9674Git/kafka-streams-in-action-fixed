@@ -45,11 +45,13 @@ public class AggregationsAndReducingExample {
         Serde<String> stringSerde = Serdes.String();
         Serde<StockTransaction> stockTransactionSerde = StreamsSerdes.StockTransactionSerde();
         Serde<ShareVolume> shareVolumeSerde = StreamsSerdes.ShareVolumeSerde();
-        Serde<FixedSizePriorityQueue> fixedSizePriorityQueueSerde = StreamsSerdes.FixedSizePriorityQueueSerde();
+        Serde<FixedSizePriorityQueue> fixedSizePriorityQueueSerde =
+                StreamsSerdes.FixedSizePriorityQueueSerde();
         NumberFormat numberFormat = NumberFormat.getInstance();
         
         Comparator<ShareVolume> comparator = (sv1, sv2) -> sv2.getShares() - sv1.getShares();
-        FixedSizePriorityQueue<ShareVolume> fixedQueue = new FixedSizePriorityQueue<>(comparator, 5);
+        FixedSizePriorityQueue<ShareVolume> fixedQueue = new
+                FixedSizePriorityQueue<>(comparator, 5);
 
         ValueMapper<FixedSizePriorityQueue, String> valueMapper = fpq -> {
             StringBuilder builder = new StringBuilder();

@@ -8,7 +8,9 @@ import org.apache.kafka.streams.state.KeyValueStore;
 
 import java.util.Objects;
 
-
+/**
+ * 购买积分
+ */
 public class PurchaseRewardTransformer implements ValueTransformer<Purchase, RewardAccumulator> {
 
     private KeyValueStore<String, Integer> stateStore;

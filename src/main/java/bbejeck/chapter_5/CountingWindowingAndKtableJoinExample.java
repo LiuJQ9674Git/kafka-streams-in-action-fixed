@@ -52,11 +52,18 @@ public class CountingWindowingAndKtableJoinExample {
         long twentySeconds = 1000 * 20;
         long fifteenMinutes = 1000 * 60 * 15;
         long fiveSeconds = 1000 * 5;
+
+        // 表，窗口<交易摘要>，Long
         KTable<Windowed<TransactionSummary>, Long> customerTransactionCounts =
-                 builder.stream(STOCK_TRANSACTIONS_TOPIC, Consumed.with(stringSerde, transactionSerde).withOffsetResetPolicy(LATEST))
+                 builder.stream(STOCK_TRANSACTIONS_TOPIC, // 消费数据
+                         Consumed.with(stringSerde, transactionSerde).
+                                 withOffsetResetPolicy(LATEST))
+                 //分组，按照交易，把交易转换为交易摘要
                 .groupBy((noKey, transaction) -> TransactionSummary.from(transaction),
                         Serialized.with(transactionKeySerde, transactionSerde))
-                 // session window comment line below and uncomment another line below for a different window example
+                 // session window comment line below and uncomment another line
+                 // below for a different window example
+                 // 使用会话窗口
                 .windowedBy(SessionWindows.with(twentySeconds).until(fifteenMinutes)).count();
 
                 //The following are examples of different windows examples
@@ -70,22 +77,33 @@ public class CountingWindowingAndKtableJoinExample {
                 //Hopping window 
                 //.windowedBy(TimeWindows.of(twentySeconds).advanceBy(fiveSeconds).until(fifteenMinutes)).count();
 
-        customerTransactionCounts.toStream().print(Printed.<Windowed<TransactionSummary>, Long>toSysOut().withLabel("Customer Transactions Counts"));
+        customerTransactionCounts.toStream().print(Printed.<Windowed<TransactionSummary>, Long>toSysOut().
+                withLabel("Customer Transactions Counts"));
 
-        KStream<String, TransactionSummary> countStream = customerTransactionCounts.toStream().map((window, count) -> {
+        // 客户交易量
+        // map只能使用Stream
+        KStream<String, TransactionSummary> countStream = customerTransactionCounts.toStream().
+                //参数：key，value->
+                map((window, count) -> {
                       TransactionSummary transactionSummary = window.key();
                       String newKey = transactionSummary.getIndustry();
                       transactionSummary.setSummaryCount(count);
                       return KeyValue.pair(newKey, transactionSummary);
         });
 
-        KTable<String, String> financialNews = builder.table( "financial-news", Consumed.with(EARLIEST));
+        // 创建KTable
+        KTable<String, String> financialNews = builder.table( "financial-news",
+                Consumed.with(EARLIEST));
 
-
+        //Value,Value,ReValue
         ValueJoiner<TransactionSummary, String, String> valueJoiner = (txnct, news) ->
-                String.format("%d shares purchased %s related news [%s]", txnct.getSummaryCount(), txnct.getStockTicker(), news);
+                String.format("%d shares purchased %s related news [%s]",
+                        txnct.getSummaryCount(), txnct.getStockTicker(), news);
 
-        KStream<String,String> joined = countStream.leftJoin(financialNews, valueJoiner, Joined.with(stringSerde, transactionKeySerde, stringSerde));
+        // 流与表的连接
+        // 交易摘要与金融信息连接
+        KStream<String,String> joined = countStream.leftJoin(financialNews,
+                valueJoiner, Joined.with(stringSerde, transactionKeySerde, stringSerde));
 
         joined.print(Printed.<String, String>toSysOut().withLabel("Transactions and News"));
 
@@ -97,11 +115,15 @@ public class CountingWindowingAndKtableJoinExample {
         kafkaStreams.setUncaughtExceptionHandler((t, e) -> {
             LOG.error("had exception ", e);
         });
-        CustomDateGenerator dateGenerator = CustomDateGenerator.withTimestampsIncreasingBy(Duration.ofMillis(750));
+
+        // 日期
+        CustomDateGenerator dateGenerator = CustomDateGenerator.
+                withTimestampsIncreasingBy(Duration.ofMillis(750));
         
         DataGenerator.setTimestampGenerator(dateGenerator::get);
-        
-        MockDataProducer.produceStockTransactions(2, 5, 3, false);
+        // 模拟数据
+        MockDataProducer.produceStockTransactions(2,
+                5, 3, false);
 
         LOG.info("Starting CountingWindowing and KTableJoins Example");
         kafkaStreams.cleanUp();
@@ -127,6 +149,7 @@ public class CountingWindowingAndKtableJoinExample {
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.put(StreamsConfig.REPLICATION_FACTOR_CONFIG, 1);
+        //时间窗口
         props.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG, StockTransactionTimestampExtractor.class);
         return props;
 

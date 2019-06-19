@@ -1,6 +1,10 @@
 package bbejeck.util.collection;
 
-
+/**
+ * 原则
+ * @param <L>
+ * @param <R>
+ */
 public class Tuple<L, R> {
 
     public final L _1;

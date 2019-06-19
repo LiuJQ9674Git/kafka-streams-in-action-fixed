@@ -3,10 +3,24 @@ package bbejeck.model;
 
 import java.text.NumberFormat;
 
+/**
+ * 股票交易量
+ */
 public class ShareVolume {
 
+    /**
+     * 交易码
+     */
     private String symbol;
+
+    /**
+     * 交易额
+     */
     private int shares;
+
+    /**
+     * 行业
+     */
     private String industry;
 
 

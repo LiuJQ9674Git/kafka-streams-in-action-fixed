@@ -65,10 +65,12 @@ public class MockDataProducer {
             init();
             int counter = 0;
             while (counter++ < numberIterations  && keepRunning) {
-                List<Purchase> purchases = DataGenerator.generatePurchases(numberPurchases, numberCustomers);
+                List<Purchase> purchases =
+                        DataGenerator.generatePurchases(numberPurchases, numberCustomers);
                 List<String> jsonValues = convertToJson(purchases);
                 for (String value : jsonValues) {
-                    ProducerRecord<String, String> record = new ProducerRecord<>(TRANSACTIONS_TOPIC, null, value);
+                    ProducerRecord<String, String> record =
+                            new ProducerRecord<>(TRANSACTIONS_TOPIC, null, value);
                     producer.send(record, callback);
                 }
                 LOG.info("Record batch sent");
@@ -360,7 +362,8 @@ public class MockDataProducer {
                 List<String> textValues = DataGenerator.generateRandomText();
 
                 for (String value : textValues) {
-                    ProducerRecord<String, String> record = new ProducerRecord<>(YELLING_APP_TOPIC, null, value);
+                    ProducerRecord<String, String> record =
+                            new ProducerRecord<>(YELLING_APP_TOPIC, null, value);
                     producer.send(record, callback);
                 }
                 LOG.info("Text batch sent");

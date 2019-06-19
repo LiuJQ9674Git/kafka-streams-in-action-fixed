@@ -20,24 +20,69 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * User: Bill Bejeck
- * Date: 2/20/16
- * Time: 9:09 AM
+ * 票据
  */
 public class Purchase {
 
-      private String firstName;
-      private String lastName;
-      private String customerId;
-      private String creditCardNumber;
-      private String itemPurchased;
-      private String department;
-      private String employeeId;
-      private int quantity;
-      private double price;
-      private Date purchaseDate;
-      private String zipCode;
-      private String storeId;
+    /**
+     * 人员信息
+     */
+    private String firstName;
+
+    /**
+     *
+     */
+    private String lastName;
+
+    /**
+     *
+     */
+    private String customerId;
+
+    /**
+     * 信用卡号
+     */
+    private String creditCardNumber;
+
+    /**
+     * 购买货品
+     */
+    private String itemPurchased;
+
+    /**
+     * 部门
+     */
+    private String department;
+
+    /**
+     * 职员
+     */
+    private String employeeId;
+
+    /**
+     * 数量
+     */
+    private int quantity;
+
+    /**
+     * 价格
+     */
+    private double price;
+
+    /**
+     * 购买日期
+     */
+    private Date purchaseDate;
+
+    /**
+     * 邮编代码
+     */
+    private String zipCode;
+
+    /**
+     * 商店ID
+     */
+    private String storeId;
 
     private Purchase(Builder builder) {
         firstName = builder.firstName;
