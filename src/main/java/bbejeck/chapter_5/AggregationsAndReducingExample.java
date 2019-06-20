@@ -73,11 +73,13 @@ public class AggregationsAndReducingExample {
                 Consumed.with(stringSerde, stockTransactionSerde)
                         .withOffsetResetPolicy(EARLIEST))
                 .mapValues(st -> ShareVolume.newBuilder(st).build())
-                .groupBy((k, v) -> v.getSymbol(), Serialized.with(stringSerde, shareVolumeSerde))
+                .groupBy((k, v) -> v.getSymbol(),
+                        Serialized.with(stringSerde, shareVolumeSerde))
                 .reduce(ShareVolume::sum);
 
 
-        shareVolume.groupBy((k, v) -> KeyValue.pair(v.getIndustry(), v), Serialized.with(stringSerde, shareVolumeSerde))
+        shareVolume.groupBy((k, v) -> KeyValue.pair(v.getIndustry(), v),
+                Serialized.with(stringSerde, shareVolumeSerde))
                 .aggregate(() -> fixedQueue,
                         (k, v, agg) -> agg.add(v),
                         (k, v, agg) -> agg.remove(v),
@@ -89,11 +91,13 @@ public class AggregationsAndReducingExample {
 
 
         KafkaStreams kafkaStreams = new KafkaStreams(builder.build(), streamsConfig);
-        MockDataProducer.produceStockTransactions(15, 50, 25, false);
+        MockDataProducer.produceStockTransactions(15,
+                50, 25, false);
         LOG.info("First Reduction and Aggregation Example Application Started");
         kafkaStreams.start();
         Thread.sleep(65000);
-        LOG.info("Shutting down the Reduction and Aggregation Example Application now");
+        LOG.info("Shutting down the Reduction and " +
+                "Aggregation Example Application now");
         kafkaStreams.close();
         MockDataProducer.shutdown();
     }
@@ -110,10 +114,13 @@ public class AggregationsAndReducingExample {
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, "1");
         props.put(ConsumerConfig.METADATA_MAX_AGE_CONFIG, "10000");
-        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG,
+                Serdes.String().getClass().getName());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,
+                Serdes.String().getClass().getName());
         props.put(StreamsConfig.REPLICATION_FACTOR_CONFIG, 1);
-        props.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG, WallclockTimestampExtractor.class);
+        props.put(StreamsConfig.DEFAULT_TIMESTAMP_EXTRACTOR_CLASS_CONFIG,
+                WallclockTimestampExtractor.class);
         return props;
 
     }

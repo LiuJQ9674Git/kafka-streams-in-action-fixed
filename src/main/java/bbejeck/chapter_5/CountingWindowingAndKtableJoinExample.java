@@ -107,8 +107,6 @@ public class CountingWindowingAndKtableJoinExample {
 
         joined.print(Printed.<String, String>toSysOut().withLabel("Transactions and News"));
 
-
-
         KafkaStreams kafkaStreams = new KafkaStreams(builder.build(), streamsConfig);
         kafkaStreams.cleanUp();
         
